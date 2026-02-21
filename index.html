@@ -3,91 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stationhead Request Support - ARASHI</title>
+    <title>ARASHI Request Support</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #0f0f14; color: white; padding: 20px; line-height: 1.6; }
-        .card { background: #1a1a24; border-radius: 15px; padding: 25px; max-width: 450px; margin: auto; border: 1px solid #A663FF; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #A663FF; font-size: 1.4rem; margin-bottom: 10px; }
-        .info { font-size: 0.9rem; color: #ccc; margin-bottom: 20px; }
-        .btn { display: block; width: 100%; padding: 14px; margin: 12px 0; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .btn-primary { background: #A663FF; color: white; }
-        .btn-primary:hover { background: #bc8aff; }
-        .btn-secondary { background: #424252; color: white; text-decoration: none; }
-        .btn-secondary:hover { background: #5a5a6e; }
+        body { font-family: sans-serif; text-align: center; background: #0f0f14; color: white; padding: 20px; }
+        .card { background: #1a1a24; border-radius: 15px; padding: 25px; max-width: 450px; margin: auto; border: 1px solid #A663FF; }
+        .btn { display: block; width: 100%; padding: 14px; margin: 12px 0; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 1rem; }
+        .btn-gold { background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; }
+        .btn-secondary { background: #424252; color: white; }
         .instruction { font-size: 0.85rem; color: #9a9aab; margin-top: 25px; text-align: left; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; }
-        b { color: #fff; }
+        .highlight { color: #FFD700; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h1>ARASHI チャンネル申請支援</h1>
-    <p class="info">全7名のステーション名、アーティスト名、ファンダム名を一括で自動入力します。</p>
     
-    <button class="btn btn-primary" onclick="copyMagicScript()">1. 呪文（スクリプト）をコピー</button>
-    <a href="https://www.stationhead.com/p/request-channel" target="_blank" class="btn btn-secondary">2. 申請ページを開く</a>
+    <a class="btn btn-gold" href="javascript:(async function(){const c={fandom:'Fans of ARASHI',artist:'https://open.spotify.com/playlist/6JM2mvYNjS96KW074CQCMd?si=531cf2c23049481c」',stations:['arashistation5','yukino5','siosato4','erinouehara','rantan31041126','sayori','kasuteranote'],message:'We love ARASHI! Please create a custom channel.'};const setVal=(id,val)=>{const el=document.getElementById(id);if(el){el.value=val;el.dispatchEvent(new Event('input',{bubbles:true}));}};setVal('fandom',c.fandom);setVal('artistName',c.artist);setVal('message',c.message);const stationInput=document.getElementById('add-team-members');const addBtn=stationInput?.closest('.grid')?.querySelector('button');if(stationInput&&addBtn){for(const name of c.stations){stationInput.value=name;stationInput.dispatchEvent(new Event('input',{bubbles:true}));addBtn.click();await new Promise(r=>setTimeout(r,600));}}alert('入力完了！');})();">【長押し】してブックマークに保存</a>
+
+    <a href="https://www.stationhead.com/p/request-channel" target="_blank" class="btn btn-secondary">2. 申請サイトを開く</a>
 
     <div class="instruction">
-        <strong>スマホでの使い方:</strong><br>
-        1. <b>上の紫のボタン</b>を押してコピーします。<br>
-        2. <b>灰色のボタン</b>で申請サイトへ移動します。<br>
-        3. 移動したサイトの「アドレスバー（URL欄）」を一度消し、手動で <b>javascript:</b> と打ち込みます。<br>
-        4. その<b>すぐ後ろ</b>に、コピーした内容を貼り付けて実行（確定）してください。<br>
-        <small>※ 7名分の追加が終わるまで数秒待ってください（完了の合図が出ます）。</small>
+        <strong>【超重要】使いかた:</strong><br>
+        1. 上の<span class="highlight">黄色のボタンを長押し</span>して「リンクをコピー」ではなく<b>「ブックマークに追加（またはリンクを保存）」</b>を選びます。<br>
+        2. 申請サイトへ移動します。<br>
+        3. サイトが開いたら、アドレスバーに<b>保存したブックマークの名前</b>（ARASHI チャンネル申請支援）を打ち込み、出てきた候補をタップしてください。<br>
+        <br>
+        <small>※これでブラウザのセキュリティを回避して自動入力が発動します！</small>
     </div>
 </div>
-
-<script>
-function copyMagicScript() {
-    // 指示いただいた設定値
-    const config = {
-        fandom: "Fans of ARASHI",
-        artist: "https://open.spotify.com/playlist/6JM2mvYNjS96KW074CQCMd?si=531cf2c23049481c」",
-        stations: [
-            "arashistation5", "yukino5", "siosato4", "erinouehara",
-            "rantan31041126", "sayori", "kasuteranote"
-        ],
-        message: "We love ARASHI! Please create a custom channel for our dedicated fandom."
-    };
-
-    // 実行用スクリプトの組み立て
-    const script = `javascript:(async function(){
-        const c = ${JSON.stringify(config)};
-        
-        /* 基本項目の入力 */
-        const setVal = (id, val) => {
-            const el = document.getElementById(id);
-            if(el) {
-                el.value = val;
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        };
-
-        setVal('fandom', c.fandom);
-        setVal('artistName', c.artist);
-        setVal('message', c.message);
-
-        /* ステーションの連続追加 */
-        const stationInput = document.getElementById('add-team-members');
-        const addBtn = stationInput?.closest('.grid')?.querySelector('button');
-
-        if(stationInput && addBtn) {
-            for(const name of c.stations) {
-                stationInput.value = name;
-                stationInput.dispatchEvent(new Event('input', { bubbles: true }));
-                addBtn.click();
-                await new Promise(r => setTimeout(r, 600)); // サイトの反応を待つための微調整時間
-            }
-        }
-
-        alert('入力と7名の追加が完了しました！残りの項目を確認して送信してください。');
-    })();`;
-
-    navigator.clipboard.writeText(script).then(() => {
-        alert("コピーしました！申請ページで「javascript:」の後に貼り付けてください。");
-    });
-}
-</script>
 
 </body>
 </html>
